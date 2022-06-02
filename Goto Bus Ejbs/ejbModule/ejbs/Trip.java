@@ -73,15 +73,19 @@ public class Trip implements Serializable {
 	public void setArrival_time(Date arrival_time) {
 		this.arrival_time = arrival_time;
 	}
-   
 	
 	//Relation between User and Trip in class Trip
-	
-	@OneToMany(mappedBy="trips",fetch=FetchType.LAZY)
+
+   
+  
+  //Relation between User and Trip in class Trip
+
+	@ManyToMany(mappedBy="trips")
     private Set<User> users;
-	
-	//ManyToOne relation between Station & Trip in class Trip
+
+    //ManyToOne relation between Station & Trip in class Trip
     @ManyToOne
     @JoinColumn(name="stationName")
     private Station station;
+    
 }

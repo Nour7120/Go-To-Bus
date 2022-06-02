@@ -5,6 +5,7 @@ import java.lang.Integer;
 import java.lang.String;
 import java.util.Date;
 
+
 import javax.ejb.Stateless;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -50,10 +51,9 @@ public class Notification implements Serializable {
 	public void setNotification_datetime(Date notification_datetime) {
 		this.notification_datetime = notification_datetime;
 	}   
-
+	
 	//Relation between User and Notification in class Notification
-	@ManyToOne
-	@JoinColumn(name="userID")
-	private User user;
-
+    @ManyToOne
+    @JoinColumn(name="userID")
+    private User user;
 }
