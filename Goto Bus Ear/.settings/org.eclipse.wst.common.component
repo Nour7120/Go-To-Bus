@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="Goto Bus Ear">
+        <wb-resource deploy-path="/" source-path="/EarContent" tag="defaultRootSource"/>
+        <dependent-module archiveName="Goto_Bus_Ejbs.jar" deploy-path="/" handle="module:/resource/Goto Bus Ejbs/Goto Bus Ejbs">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="Goto_Bus_Services.war" deploy-path="/" handle="module:/resource/Goto Bus Services/Goto Bus Services">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+    </wb-module>
+</project-modules>
