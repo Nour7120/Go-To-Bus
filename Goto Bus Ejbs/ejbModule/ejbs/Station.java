@@ -3,6 +3,7 @@ package ejbs;
 import java.io.Serializable;
 import java.lang.Double;
 import java.lang.String;
+import java.util.Set;
 
 import javax.ejb.Stateless;
 import javax.persistence.*;
@@ -45,5 +46,9 @@ public class Station implements Serializable {
 	public void setLatitude(Double latitude) {
 		this.latitude = latitude;
 	}   
-   
+    
+    //OneToMany relation between station & Trip in class Station
+    @OneToMany(mappedBy="station",fetch=FetchType.LAZY)
+    private Set<Trip> trip;
+    
 }

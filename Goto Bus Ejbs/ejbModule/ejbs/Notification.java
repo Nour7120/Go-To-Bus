@@ -51,5 +51,9 @@ public class Notification implements Serializable {
 		this.notification_datetime = notification_datetime;
 	}   
 
-   
+	//Relation between User and Notification in class Notification
+	@ManyToOne
+	@JoinColumn(name="userID")
+	private User user;
+
 }

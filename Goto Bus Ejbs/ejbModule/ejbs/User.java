@@ -3,6 +3,7 @@ package ejbs;
 import java.io.Serializable;
 import java.lang.Integer;
 import java.lang.String;
+import java.util.Set;
 
 import javax.ejb.Stateless;
 import javax.persistence.*;
@@ -61,5 +62,20 @@ public class User implements Serializable {
 	public void setRole(String role) {
 		this.role = role;
 	}
+	
+	//Relation between User and Trip in class User
+	  @ManyToOne
+	   @JoinColumn(name="tripID")
+	   private Trip trips;
+
+	   //ManyToOne relation between user & station
+	   // In class user
+	   @ManyToOne
+	   @JoinColumn(name="stationName")
+	   private Station station;
    
+   
+   //Relation between User and Notification in class User
+   @OneToMany(mappedBy="user", fetch=FetchType.LAZY)
+   private Set<Notification> notifications;
 }
