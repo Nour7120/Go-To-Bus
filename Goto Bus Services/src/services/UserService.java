@@ -5,10 +5,11 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.ejb.EJB;
-import javax.ejb.Stateless;
+import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.transaction.NotSupportedException;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 import javax.ws.rs.Consumes;
@@ -18,13 +19,17 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.jboss.security.auth.spi.Users.User;
+import ejbs.User;
 
 
 
-@Stateless
+
+
+
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@RequestScoped
+@Path("/user1")
 public class UserService {
 	
 	@EJB
@@ -43,14 +48,16 @@ public class UserService {
 	public void register_user(User user) throws IllegalStateException, SecurityException, SystemException
 	{
 		try
-		{
-			ut.begin();
-			em.persist(user);
-			ut.commit();
-		}
-		catch(Exception e) {
-			ut.rollback();
-		}
+        {
+            ut.begin();
+            em.persist(user);
+            ut.commit();
+        
+        }
+        catch(Exception e) {
+            ut.rollback();
+           
+        }
 	}
 	
 	@GET
@@ -61,4 +68,27 @@ public class UserService {
 		List<User> users = query.getResultList();
 		return users;
 	}
+	
+	@GET
+	@Path("/Login")
+	public boolean login(User user) throws NotSupportedException, SystemException
+    {
+		String password=user.getPassword();
+		String name=user.getUsername();
+       
+            
+
+        TypedQuery<User> query = em.createQuery("SELECT u FROM users u WHERE u.name= :username AND u.password = :Password", User.class);        
+        query.setParameter(1, name);
+        query.setParameter(2, password); 
+        try{ 
+            query.getSingleResult();
+            return true;
+        }catch(javax.persistence.NoResultException e)
+        {
+            return false;
+        }
+        
+        
+    }
 }
